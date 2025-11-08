@@ -69,11 +69,7 @@ Before running this application, make sure you have:
 
 ## 📥 Installation
 
-1. **Clone or navigate to the project directory:**
-
-   ```bash
-   cd "/Users/smit/Codemify Demo App"
-   ```
+1. **Clone the project:**
 
 2. **Install backend dependencies:**
 
