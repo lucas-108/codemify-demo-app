@@ -162,7 +162,9 @@ const Checkout = ({ cart, totalPrice, onComplete, onCancel }) => {
             value={formData.zipCode}
             onChange={handleChange}
             required
-            pattern="[0-9]{5}"
+            pattern="[0-9]{5}(-[0-9]{4})?"
+            placeholder="12345 or 12345-6789"
+            title="Please enter a valid ZIP code (5 digits or 5+4 format: 12345 or 12345-6789)"
             data-testid="zip-code-input"
           />
         </div>
@@ -178,8 +180,9 @@ const Checkout = ({ cart, totalPrice, onComplete, onCancel }) => {
             value={formData.cardNumber}
             onChange={handleChange}
             required
-            pattern="[0-9]{16}"
+            pattern="[0-9]{13,19}"
             placeholder="1234567890123456"
+            title="Please enter a valid card number (13-19 digits)"
             data-testid="card-number-input"
           />
         </div>
@@ -195,7 +198,8 @@ const Checkout = ({ cart, totalPrice, onComplete, onCancel }) => {
               onChange={handleChange}
               required
               placeholder="MM/YY"
-              pattern="[0-9]{2}/[0-9]{2}"
+              pattern="(0[1-9]|1[0-2])\/[0-9]{2}"
+              title="Please enter expiry date in MM/YY format (e.g., 12/25)"
               data-testid="expiry-date-input"
             />
           </div>
@@ -211,6 +215,7 @@ const Checkout = ({ cart, totalPrice, onComplete, onCancel }) => {
               required
               pattern="[0-9]{3,4}"
               placeholder="123"
+              title="Please enter a valid CVV (3-4 digits on the back of your card)"
               data-testid="cvv-input"
             />
           </div>
