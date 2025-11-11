@@ -37,7 +37,7 @@ const ProductList = ({ products, onAdd }) => {
     <div className="products-container">
       <div className="products-header">
         <h2>Products</h2>
-        <span className="products-count">{products.length} items</span>
+        <span className="products-count">{products.length + 1} items</span>
       </div>
       <ul className="products-grid">
         {products.map(product => (
