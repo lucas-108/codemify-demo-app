@@ -36,11 +36,11 @@ const Checkout = ({ cart, totalPrice, onComplete, onCancel }) => {
   if (isSubmitted) {
     return (
       <div className="checkout-container">
-        <div className="success-message">
+        <div className="success-message" data-testid="order-confirmation">
           <h3>✅ Order Placed Successfully!</h3>
           <p>Thank you for your purchase. Your order has been confirmed.</p>
           <p>Order Total: <strong>${totalPrice}</strong></p>
-          <button className="btn-primary" onClick={onComplete}>
+          <button className="btn-primary" onClick={onComplete} data-testid="continue-shopping-button">
             Continue Shopping
           </button>
         </div>

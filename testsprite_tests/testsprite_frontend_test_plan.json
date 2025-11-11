@@ -1,0 +1,521 @@
+[
+  {
+    "id": "TC001",
+    "title": "Product catalog displays correctly with images and fallback",
+    "description": "Verify that the product catalog grid shows all products with images, names, descriptions, and prices. If a product image fails to load, a fallback UI is displayed instead.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to the product catalog page"
+      },
+      {
+        "type": "assertion",
+        "description": "Check that all products are displayed in grid layout with name, description, and price"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify that product images load correctly"
+      },
+      {
+        "type": "action",
+        "description": "Simulate a product image load failure"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify that a fallback colored div UI is shown for the failed image"
+      }
+    ]
+  },
+  {
+    "id": "TC002",
+    "title": "Add products to shopping cart updates cart badge and state",
+    "description": "Ensure that adding products to the shopping cart updates the cart badge count in the header and maintains the cart state during the browser session.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to product catalog page"
+      },
+      {
+        "type": "action",
+        "description": "Add a product to the shopping cart"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the cart badge count increments by one"
+      },
+      {
+        "type": "action",
+        "description": "Add multiple different products to cart"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the cart badge reflects total item count correctly"
+      },
+      {
+        "type": "action",
+        "description": "Reload the page"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify that the cart badge and contents persist in the session"
+      }
+    ]
+  },
+  {
+    "id": "TC003",
+    "title": "Update product quantity in cart and check total price recalculation",
+    "description": "Validate that updating the quantity of products in the cart correctly recalculates the cart totals and updates the UI accordingly.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to cart page with products added"
+      },
+      {
+        "type": "action",
+        "description": "Increase the quantity of a product"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the product quantity updates in the cart"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify cart total price updates accordingly (accounting for noted price calculation bug)"
+      },
+      {
+        "type": "action",
+        "description": "Decrease the quantity of the same product"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the quantity and total price update correctly"
+      }
+    ]
+  },
+  {
+    "id": "TC004",
+    "title": "Remove items from cart updates totals and badge count",
+    "description": "Check that removing items from the shopping cart properly updates the cart total price and cart badge count in real-time.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to cart page with multiple products added"
+      },
+      {
+        "type": "action",
+        "description": "Remove one product from the cart"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the product is removed from the cart display"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the cart total price updates without errors"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the cart badge count decrements accordingly"
+      }
+    ]
+  },
+  {
+    "id": "TC005",
+    "title": "Checkout form validation accepts valid inputs and rejects invalid",
+    "description": "Verify that all checkout form fields validate input formats correctly, accepting valid data and rejecting invalid data according to specified patterns.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to checkout page"
+      },
+      {
+        "type": "action",
+        "description": "Enter valid ZIP codes (e.g., 12345 and 12345-6789)"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify ZIP code field accepts valid patterns"
+      },
+      {
+        "type": "action",
+        "description": "Enter invalid ZIP code formats (e.g., 1234, abcde)"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify ZIP code field validation error appears"
+      },
+      {
+        "type": "action",
+        "description": "Enter valid card numbers with lengths 13 to 19 digits"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify card number field accepts these numbers"
+      },
+      {
+        "type": "action",
+        "description": "Enter invalid card numbers (less than 13 or more than 19 digits, or containing letters)"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify card number validation error appears"
+      },
+      {
+        "type": "action",
+        "description": "Enter valid expiry dates in MM/YY format"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify expiry date field accepts valid formats"
+      },
+      {
+        "type": "action",
+        "description": "Enter invalid expiry formats (e.g., 13/22, MM/YYYY, letters)"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify expiry date validation error appears"
+      },
+      {
+        "type": "action",
+        "description": "Enter valid CVV codes with 3 or 4 digits"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify CVV field accepts valid inputs"
+      },
+      {
+        "type": "action",
+        "description": "Enter invalid CVVs (e.g., 2 digits, letters, 5 digits)"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify CVV validation error appears"
+      }
+    ]
+  },
+  {
+    "id": "TC006",
+    "title": "Complete checkout order submission and confirmation",
+    "description": "Test the full checkout process flow from entering valid shipping and payment details, submitting the order, to receiving confirmation and cart clearing.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to checkout page with items in cart"
+      },
+      {
+        "type": "action",
+        "description": "Fill in all required shipping and payment fields with valid data"
+      },
+      {
+        "type": "action",
+        "description": "Submit the order"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify simulated order processing delay of ~2 seconds occurs"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify order confirmation message is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify shopping cart is cleared after order submission"
+      }
+    ]
+  },
+  {
+    "id": "TC007",
+    "title": "API GET all products returns correct data and status",
+    "description": "Verify the REST API endpoint to get all products responds with correct HTTP status and product list JSON data.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Send GET request to /products API endpoint"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify response HTTP status is 200 OK"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify response body contains array of products with expected fields"
+      }
+    ]
+  },
+  {
+    "id": "TC008",
+    "title": "API GET single product returns specific product or 404",
+    "description": "Ensure that GET request for a single product by ID returns correct product data or 404 if product does not exist.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Send GET request to /products/{valid_id} API endpoint"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify response HTTP status is 200 OK"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify response body contains product details matching requested ID"
+      },
+      {
+        "type": "action",
+        "description": "Send GET request to /products/{invalid_id} API endpoint"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify response HTTP status is 404 Not Found"
+      }
+    ]
+  },
+  {
+    "id": "TC009",
+    "title": "API POST create new product stores data and returns status",
+    "description": "Test that posting a new product to the API successfully stores the product and returns appropriate success status and data.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Send POST request to /products with valid new product JSON payload"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify response HTTP status is 201 Created"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify response body contains the created product with assigned ID"
+      },
+      {
+        "type": "action",
+        "description": "Send GET request to /products to confirm new product is listed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify new product appears in the product list"
+      }
+    ]
+  },
+  {
+    "id": "TC010",
+    "title": "API DELETE product removes product and returns status",
+    "description": "Validate that deleting a product by ID through the API removes it from storage and returns proper HTTP status codes.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Send DELETE request to /products/{valid_id}"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify HTTP status is 200 OK or 204 No Content"
+      },
+      {
+        "type": "action",
+        "description": "Send GET request to /products/{deleted_id}"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify response status is 404 Not Found confirming deletion"
+      }
+    ]
+  },
+  {
+    "id": "TC011",
+    "title": "API endpoints respond with appropriate error codes on invalid requests",
+    "description": "Check API endpoints return appropriate HTTP error codes (400, 404, 500) for invalid input, missing resources, and server errors.",
+    "category": "error handling",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Send POST request to /products with invalid payload (missing required fields)"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify response status is 400 Bad Request"
+      },
+      {
+        "type": "action",
+        "description": "Send GET request to /products/invalid_id format"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify response status is 400 Bad Request or 404 Not Found"
+      },
+      {
+        "type": "action",
+        "description": "Send DELETE request to /products/nonexistent_id"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify response status is 404 Not Found"
+      }
+    ]
+  },
+  {
+    "id": "TC012",
+    "title": "Navigation system updates active states and transitions smoothly",
+    "description": "Verify multi-page navigation changes views between Products, Cart, and Checkout pages with active navigation indicators and cart badge visible.",
+    "category": "ui",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Open application and check default active page is Products"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify active state indicator is shown on Products navigation item"
+      },
+      {
+        "type": "action",
+        "description": "Click on Cart navigation item"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify navigation changes to Cart page"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify Cart navigation item is highlighted as active"
+      },
+      {
+        "type": "action",
+        "description": "Click on Checkout navigation item"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify navigation changes to Checkout page"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify Checkout navigation item is active"
+      }
+    ]
+  },
+  {
+    "id": "TC013",
+    "title": "Cart badge accurately displays total item count throughout navigation",
+    "description": "Test that the cart badge in header updates correctly with added, updated, or removed items and remains consistent as user navigates between pages.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Add 3 products to cart from product catalog"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify cart badge shows count '3'"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to Cart page"
+      },
+      {
+        "type": "action",
+        "description": "Remove one item from cart"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify cart badge updates to '2'"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to Products page"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify cart badge still shows '2'"
+      }
+    ]
+  },
+  {
+    "id": "TC014",
+    "title": "Responsive layout renders correctly across devices and browsers",
+    "description": "Verify that product catalog grid and all application UI components adapt fluidly to various screen sizes, resolutions, and common browsers.",
+    "category": "ui",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Open application on desktop browser at various resolutions (e.g., full HD, 1280x720)"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify grid layout adjusts properly with no content overlap or cutoff"
+      },
+      {
+        "type": "action",
+        "description": "Open application using tablet and mobile devices or emulators"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify navigation menu, product cards, cart, and checkout forms display responsively and are fully accessible"
+      },
+      {
+        "type": "action",
+        "description": "Test application in latest versions of Chrome, Firefox, Safari, and Edge browsers"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify no UI layout or functional inconsistencies across browsers"
+      }
+    ]
+  },
+  {
+    "id": "TC015",
+    "title": "Cart total price calculation accounts for quantity with known bug verification",
+    "description": "Verify total price in shopping cart calculates based on quantity times product price, noting the bug of multiplying final price by 1.1 to assess impact on displayed total.",
+    "category": "functional",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Add a product with known price to cart with quantity 1"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify total price matches product price multiplied by 1.1 (reported bug)"
+      },
+      {
+        "type": "action",
+        "description": "Increase quantity to 2"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify total price equals (price * 2) * 1.1"
+      },
+      {
+        "type": "action",
+        "description": "Remove product from cart"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify total price updates to zero"
+      }
+    ]
+  }
+]

@@ -37,7 +37,7 @@ const ProductList = ({ products, onAdd }) => {
     <div className="products-container">
       <div className="products-header">
         <h2>Products</h2>
-        <span className="products-count">{products.length + 1} items</span>
+        <span className="products-count">{products.length} items</span>
       </div>
       <ul className="products-grid">
         {products.map(product => (
@@ -56,7 +56,7 @@ const ProductList = ({ products, onAdd }) => {
                 <span className="product-price">${product.price}</span>
                 <button 
                   className="btn-add"
-                  onClick={() => product.id === 1 ? null : onAdd(product)}
+                  onClick={() => onAdd(product)}
                   data-testid={`add-to-cart-${product.id}`}
                 >
                   Add to Cart

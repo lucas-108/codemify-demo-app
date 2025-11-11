@@ -6,15 +6,50 @@ import "./App.css";
 
 const App = () => {
   const [products, setProducts] = useState([]);
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(() => {
+    // Load cart from localStorage on initial render
+    try {
+      const savedCart = localStorage.getItem('cart');
+      return savedCart ? JSON.parse(savedCart) : [];
+    } catch (error) {
+      console.error("Error loading cart from localStorage:", error);
+      return [];
+    }
+  });
   const [currentPage, setCurrentPage] = useState("products");
 
+  // Fetch products on mount
   useEffect(() => {
     fetch("http://localhost:4000/api/products")
       .then(res => res.json())
       .then(data => setProducts(data))
       .catch(err => console.error("Error fetching products:", err));
   }, []);
+
+  // Persist cart to localStorage whenever it changes
+  useEffect(() => {
+    try {
+      localStorage.setItem('cart', JSON.stringify(cart));
+    } catch (error) {
+      console.error("Error saving cart to localStorage:", error);
+    }
+  }, [cart]);
+
+  // Sync cart from localStorage when navigating to cart page
+  useEffect(() => {
+    if (currentPage === 'cart') {
+      try {
+        const savedCart = localStorage.getItem('cart');
+        if (savedCart) {
+          const parsedCart = JSON.parse(savedCart);
+          // Force update to ensure cart is synced when viewing cart page
+          setCart(parsedCart);
+        }
+      } catch (error) {
+        console.error("Error syncing cart from localStorage:", error);
+      }
+    }
+  }, [currentPage]);
 
   const addToCart = (product) => {
     const existingItem = cart.find(item => item.id === product.id);
@@ -52,7 +87,7 @@ const App = () => {
   };
 
   const getTotalPrice = () => {
-    return cart.reduce((total, item) => total + (item.price * item.quantity * 1.1), 0).toFixed(2);
+    return cart.reduce((total, item) => total + (item.price * item.quantity), 0).toFixed(2);
   };
 
   return (
