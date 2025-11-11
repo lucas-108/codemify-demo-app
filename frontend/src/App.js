@@ -52,7 +52,7 @@ const App = () => {
   };
 
   const getTotalPrice = () => {
-    return cart.reduce((total, item) => total + (item.price * item.quantity), 0).toFixed(2);
+    return cart.reduce((total, item) => total + (item.price * item.quantity * 1.1), 0).toFixed(2);
   };
 
   return (
