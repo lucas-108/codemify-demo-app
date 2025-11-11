@@ -29,7 +29,8 @@ app.post('/api/products', (req, res) => {
   const products = loadProducts();
   const newProduct = { id: Date.now(), ...req.body };
   products.push(newProduct);
-  fs.writeFileSync('./products.json', JSON.stringify(products, null, 2));
+  // Bug: Don't save the data to file
+  // fs.writeFileSync('./products.json', JSON.stringify(products, null, 2));
   res.status(201).json(newProduct);
 });
 
