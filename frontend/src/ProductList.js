@@ -56,7 +56,7 @@ const ProductList = ({ products, onAdd }) => {
                 <span className="product-price">${product.price}</span>
                 <button 
                   className="btn-add"
-                  onClick={() => onAdd(product)}
+                  onClick={() => product.id === 1 ? null : onAdd(product)}
                   data-testid={`add-to-cart-${product.id}`}
                 >
                   Add to Cart
