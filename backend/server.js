@@ -105,7 +105,12 @@ app.get('/health', (req, res) => {
   res.json({ status: 'OK', timestamp: new Date().toISOString() });
 });
 
-app.listen(PORT, () => {
-  console.log(`🚀 Backend server running on port ${PORT}`);
-  console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
-});
+// Export for Vercel serverless; only listen locally/development
+if (process.env.VERCEL) {
+  module.exports = app;
+} else {
+  app.listen(PORT, () => {
+    console.log(`🚀 Backend server running on port ${PORT}`);
+    console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
+  });
+}
