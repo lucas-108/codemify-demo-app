@@ -47,8 +47,21 @@ app.get('/api/products', (req, res) => {
   res.json(products);
 });
 
+// Also handle with /demo-app prefix for Vercel routing
+app.get('/demo-app/api/products', (req, res) => {
+  const products = loadProducts();
+  res.json(products);
+});
+
 // Get a single product
 app.get('/api/products/:id', (req, res) => {
+  const products = loadProducts();
+  const product = products.find(p => p.id === parseInt(req.params.id));
+  product ? res.json(product) : res.status(404).json({ message: 'Product not found' });
+});
+
+// Also handle with /demo-app prefix
+app.get('/demo-app/api/products/:id', (req, res) => {
   const products = loadProducts();
   const product = products.find(p => p.id === parseInt(req.params.id));
   product ? res.json(product) : res.status(404).json({ message: 'Product not found' });
@@ -72,8 +85,48 @@ app.post('/api/products', (req, res) => {
   }
 });
 
+// Also handle with /demo-app prefix
+app.post('/demo-app/api/products', (req, res) => {
+  try {
+    const products = loadProducts();
+    const newProduct = { id: Date.now(), ...req.body };
+    products.push(newProduct);
+    
+    if (saveProducts(products)) {
+      res.status(201).json(newProduct);
+    } else {
+      res.status(500).json({ error: 'Failed to save product' });
+    }
+  } catch (error) {
+    console.error('Error creating product:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 // Delete a product
 app.delete('/api/products/:id', (req, res) => {
+  try {
+    let products = loadProducts();
+    const initialLength = products.length;
+    products = products.filter(p => p.id !== parseInt(req.params.id));
+    
+    if (products.length < initialLength) {
+      if (saveProducts(products)) {
+        res.json({ message: 'Product deleted successfully' });
+      } else {
+        res.status(500).json({ error: 'Failed to delete product' });
+      }
+    } else {
+      res.status(404).json({ error: 'Product not found' });
+    }
+  } catch (error) {
+    console.error('Error deleting product:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Also handle with /demo-app prefix
+app.delete('/demo-app/api/products/:id', (req, res) => {
   try {
     let products = loadProducts();
     const initialLength = products.length;
