@@ -19,16 +19,20 @@
       "dest": "backend/server.js"
     },
     {
-      "src": "/demo-app",
-      "dest": "frontend/build/index.html"
+      "src": "/demo-app/(.*\\.(js|css|png|jpg|jpeg|gif|svg|ico|json|woff|woff2|ttf|eot))",
+      "dest": "/frontend/$1"
     },
     {
       "src": "/demo-app/(.*)",
-      "dest": "frontend/build/index.html"
+      "dest": "/frontend/index.html"
+    },
+    {
+      "src": "/demo-app",
+      "dest": "/frontend/index.html"
     },
     {
       "src": "/",
-      "status": 302,
+      "status": 301,
       "headers": {
         "Location": "/demo-app"
       }
