@@ -1,0 +1,16 @@
+{
+  "name": "codemify-demo-app",
+  "version": "1.0.0",
+  "description": "Codemify E-Commerce Demo Application",
+  "scripts": {
+    "build": "cd frontend && npm install && npm run build",
+    "install-backend": "cd backend && npm install",
+    "install-all": "npm run install-backend && cd frontend && npm install",
+    "start": "cd backend && npm start",
+    "dev:backend": "cd backend && npm start",
+    "dev:frontend": "cd frontend && npm start"
+  },
+  "keywords": ["ecommerce", "demo", "testing"],
+  "author": "Codemify",
+  "license": "MIT"
+}

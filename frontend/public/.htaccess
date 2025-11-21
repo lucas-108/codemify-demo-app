@@ -1,0 +1,10 @@
+# Apache configuration for /demo-app subdirectory deployment
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /demo-app/
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME} !-l
+  RewriteRule . /demo-app/index.html [L]
+</IfModule>

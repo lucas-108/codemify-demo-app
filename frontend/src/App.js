@@ -4,6 +4,9 @@ import Cart from "./Cart";
 import Checkout from "./Checkout";
 import "./App.css";
 
+// Use environment variable for API URL, fallback to localhost for development
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:4000';
+
 const App = () => {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState(() => {
@@ -20,7 +23,7 @@ const App = () => {
 
   // Fetch products on mount
   useEffect(() => {
-    fetch("http://localhost:4000/api/products")
+    fetch(`${API_URL}/api/products`)
       .then(res => res.json())
       .then(data => setProducts(data))
       .catch(err => console.error("Error fetching products:", err));
