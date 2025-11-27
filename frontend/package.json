@@ -8,11 +8,20 @@
     "react-dom": "^18.0.0",
     "react-scripts": "5.0.1"
   },
+  "devDependencies": {
+    "cypress": "^13.6.0"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run",
+    "cypress:run:chrome": "cypress run --browser chrome",
+    "cypress:run:firefox": "cypress run --browser firefox",
+    "test:e2e": "cypress run",
+    "test:e2e:headed": "cypress run --headed"
   },
   "browserslist": {
     "production": [
