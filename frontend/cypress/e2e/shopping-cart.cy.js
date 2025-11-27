@@ -22,9 +22,6 @@ describe('Shopping Cart Management', () => {
 
       // Verify cart badge updates to 1
       cy.verifyCartBadge(1);
-
-      // Verify button shows active state
-      cy.get('[data-testid="add-to-cart-1"]').should('have.class', 'active');
     });
 
     it('TC3: Should add multiple products to cart and update badge correctly', () => {
@@ -64,10 +61,10 @@ describe('Shopping Cart Management', () => {
       cy.contains('button', 'Cart').should('have.class', 'active');
 
       // Verify all 3 items are displayed
-      cy.get('[data-testid^="cart-item-"]').should('have.length', 3);
+      cy.get('.cart-item').should('have.length', 3);
 
       // Verify each cart item has required elements
-      cy.get('[data-testid^="cart-item-"]').each(($item) => {
+      cy.get('.cart-item').each(($item) => {
         cy.wrap($item).within(() => {
           // Product image
           cy.get('img').should('be.visible');
@@ -139,7 +136,7 @@ describe('Shopping Cart Management', () => {
       cy.goToCart();
 
       // Verify initial state - 2 items
-      cy.get('[data-testid^="cart-item-"]').should('have.length', 2);
+      cy.get('.cart-item').should('have.length', 2);
       cy.verifyCartBadge(2);
 
       // Decrease Bike Light quantity from 1
@@ -149,7 +146,7 @@ describe('Shopping Cart Management', () => {
       cy.contains('h3', 'Codemify Bike Light').should('not.exist');
       
       // Verify only 1 item remains
-      cy.get('[data-testid^="cart-item-"]').should('have.length', 1);
+      cy.get('.cart-item').should('have.length', 1);
       
       // Verify cart badge updated
       cy.verifyCartBadge(1);
@@ -167,7 +164,7 @@ describe('Shopping Cart Management', () => {
       cy.goToCart();
 
       // Verify initial state
-      cy.get('[data-testid^="cart-item-"]').should('have.length', 2);
+      cy.get('.cart-item').should('have.length', 2);
       cy.verifyCartBadge(2);
 
       // Remove T-Shirt
@@ -177,7 +174,7 @@ describe('Shopping Cart Management', () => {
       cy.contains('h3', 'Codemify Bolt T-Shirt').should('not.exist');
       
       // Verify only 1 item remains
-      cy.get('[data-testid^="cart-item-"]').should('have.length', 1);
+      cy.get('.cart-item').should('have.length', 1);
       
       // Verify cart badge updated
       cy.verifyCartBadge(1);

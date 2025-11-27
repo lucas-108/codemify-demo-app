@@ -41,7 +41,7 @@ describe('Edge Cases and Error Handling', () => {
       cy.verifyCartBadge(1);
 
       cy.goToCart();
-      cy.get('[data-testid^="cart-item-"]').should('have.length', 1);
+      cy.get('.cart-item').should('have.length', 1);
     });
 
     it('Should handle removing all items from cart', () => {
@@ -55,10 +55,10 @@ describe('Edge Cases and Error Handling', () => {
       cy.get('[data-testid="remove-from-cart-1"]').click();
       cy.get('[data-testid="remove-from-cart-2"]').click();
       cy.get('[data-testid="remove-from-cart-3"]').click();
-
+      
       // Verify cart is empty
       cy.verifyCartBadge(0);
-      cy.get('[data-testid^="cart-item-"]').should('have.length', 0);
+      cy.get('.cart-item').should('have.length', 0);
     });
 
     it('Should handle decreasing quantity to zero for all items', () => {
@@ -73,7 +73,7 @@ describe('Edge Cases and Error Handling', () => {
 
       // Verify cart is empty
       cy.verifyCartBadge(0);
-      cy.get('[data-testid^="cart-item-"]').should('have.length', 0);
+      cy.get('.cart-item').should('have.length', 0);
     });
   });
 
@@ -208,7 +208,7 @@ describe('Edge Cases and Error Handling', () => {
       cy.verifyCartBadge(2);
       
       cy.goToCart();
-      cy.get('[data-testid^="cart-item-"]').should('have.length', 2);
+      cy.get('.cart-item').should('have.length', 2);
     });
 
     it('Should clear cart when localStorage is cleared', () => {
@@ -229,7 +229,7 @@ describe('Edge Cases and Error Handling', () => {
       // Test mobile viewport
       cy.viewport(375, 667);
       cy.contains('h2', 'Products').should('be.visible');
-      cy.get('[data-testid^="product-"]').should('have.length', 6);
+      cy.get('.product-card').should('have.length', 6);
 
       // Test tablet viewport
       cy.viewport(768, 1024);
@@ -252,7 +252,7 @@ describe('Edge Cases and Error Handling', () => {
       cy.verifyCartBadge(6);
       
       cy.goToCart();
-      cy.get('[data-testid^="cart-item-"]').should('have.length', 6);
+      cy.get('.cart-item').should('have.length', 6);
     });
 
     it('Should handle quantity updates on multiple items', () => {

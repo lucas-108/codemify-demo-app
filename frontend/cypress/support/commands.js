@@ -33,9 +33,13 @@ Cypress.Commands.add('addProductToCart', (productId) => {
  */
 Cypress.Commands.add('verifyCartBadge', (count) => {
   if (count === 0) {
-    cy.get('[data-testid="cart-badge"]').should('not.exist');
+    cy.contains('button', 'Cart').within(() => {
+      cy.get('.cart-badge').should('not.exist');
+    });
   } else {
-    cy.get('[data-testid="cart-badge"]').should('contain', count);
+    cy.contains('button', 'Cart').within(() => {
+      cy.get('.cart-badge').should('be.visible').and('contain', count);
+    });
   }
 });
 

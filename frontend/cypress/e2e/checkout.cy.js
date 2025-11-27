@@ -47,7 +47,7 @@ describe('Checkout Process', () => {
       cy.get('[data-testid="cvv-input"]').should('be.visible');
 
       // Verify action buttons
-      cy.get('[data-testid="cancel-button"]').should('be.visible');
+      cy.contains('button', 'Cancel').should('be.visible');
       cy.get('[data-testid="complete-order-button"]').should('be.visible');
     });
 
@@ -61,13 +61,13 @@ describe('Checkout Process', () => {
       cy.contains('h2', 'Checkout').should('be.visible');
 
       // Click cancel
-      cy.get('[data-testid="cancel-button"]').click();
+      cy.contains('button', 'Cancel').click();
 
       // Verify returned to cart
       cy.contains('h2', 'Your Shopping Cart').should('be.visible');
 
       // Verify cart still has items
-      cy.get('[data-testid="cart-item-1"]').should('exist');
+      cy.get('.cart-item').should('exist');
       cy.verifyCartBadge(1);
     });
   });
@@ -144,19 +144,20 @@ describe('Checkout Process', () => {
       // Submit order
       cy.get('[data-testid="complete-order-button"]').click();
 
-      // Verify order confirmation
+      // Wait for and verify order confirmation
+      cy.get('[data-testid="order-confirmation"]', { timeout: 10000 }).should('be.visible');
       cy.contains('Order Placed Successfully').should('be.visible');
       cy.contains('Thank you for your purchase').should('be.visible');
       cy.contains('$59.98').should('be.visible');
 
-      // Verify Continue Shopping button
-      cy.contains('button', 'Continue Shopping').should('be.visible');
+      // Verify Continue Shopping button exists
+      cy.get('[data-testid="continue-shopping-button"]').should('be.visible');
 
       // Verify cart is cleared
       cy.verifyCartBadge(0);
 
       // Click Continue Shopping
-      cy.contains('button', 'Continue Shopping').click();
+      cy.get('[data-testid="continue-shopping-button"]').click();
 
       // Verify returned to products page
       cy.contains('h2', 'Products').should('be.visible');
@@ -215,7 +216,7 @@ describe('Checkout Process', () => {
     it('Should complete full e2e workflow from browsing to order completion', () => {
       // Browse products
       cy.contains('h2', 'Products').should('be.visible');
-      cy.get('[data-testid^="product-"]').should('have.length', 6);
+      cy.get('.product-card').should('have.length', 6);
 
       // Add products to cart
       cy.addProductToCart(1); // Backpack $29.99
@@ -240,12 +241,12 @@ describe('Checkout Process', () => {
       cy.fillCheckoutForm();
       cy.get('[data-testid="complete-order-button"]').click();
 
-      // Verify success
-      cy.contains('Order Placed Successfully').should('be.visible');
+      // Verify success (wait for 2s processing + render time)
+      cy.get('[data-testid="order-confirmation"]', { timeout: 15000 }).should('be.visible');
       cy.verifyCartBadge(0);
 
       // Return to shopping
-      cy.contains('button', 'Continue Shopping').click();
+      cy.get('[data-testid="continue-shopping-button"]', { timeout: 5000 }).click();
       cy.contains('h2', 'Products').should('be.visible');
     });
   });
