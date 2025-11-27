@@ -9,6 +9,7 @@
     "react-scripts": "5.0.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.57.0",
     "cypress": "^13.6.0"
   },
   "scripts": {
@@ -21,7 +22,15 @@
     "cypress:run:chrome": "cypress run --browser chrome",
     "cypress:run:firefox": "cypress run --browser firefox",
     "test:e2e": "cypress run",
-    "test:e2e:headed": "cypress run --headed"
+    "test:e2e:headed": "cypress run --headed",
+    "playwright": "playwright test",
+    "playwright:headed": "playwright test --headed",
+    "playwright:ui": "playwright test --ui",
+    "playwright:debug": "playwright test --debug",
+    "playwright:chrome": "playwright test --project=chromium",
+    "playwright:firefox": "playwright test --project=firefox",
+    "playwright:webkit": "playwright test --project=webkit",
+    "playwright:report": "playwright show-report"
   },
   "browserslist": {
     "production": [
