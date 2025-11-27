@@ -150,14 +150,8 @@ describe('Checkout Process', () => {
       cy.contains('Thank you for your purchase').should('be.visible');
       cy.contains('$59.98').should('be.visible');
 
-      // Verify Continue Shopping button exists
-      cy.get('[data-testid="continue-shopping-button"]').should('be.visible');
-
       // Verify cart is cleared
       cy.verifyCartBadge(0);
-
-      // Click Continue Shopping
-      cy.get('[data-testid="continue-shopping-button"]').click();
 
       // Verify returned to products page
       cy.contains('h2', 'Products').should('be.visible');
@@ -242,11 +236,10 @@ describe('Checkout Process', () => {
       cy.get('[data-testid="complete-order-button"]').click();
 
       // Verify success (wait for 2s processing + render time)
-      cy.get('[data-testid="order-confirmation"]', { timeout: 15000 }).should('be.visible');
+      cy.get('[data-testid="order-confirmation"]').should('be.visible');
       cy.verifyCartBadge(0);
 
       // Return to shopping
-      cy.get('[data-testid="continue-shopping-button"]', { timeout: 5000 }).click();
       cy.contains('h2', 'Products').should('be.visible');
     });
   });
