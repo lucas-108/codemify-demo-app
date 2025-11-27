@@ -223,8 +223,7 @@ describe('Shopping Cart Management', () => {
       cy.goToCart();
 
       // Should show appropriate message or empty state
-      // (Implementation may vary - adjust based on actual UI)
-      cy.contains('Your Shopping Cart').should('be.visible');
+      cy.contains('Your cart is empty').should('be.visible');
     });
   });
 });
