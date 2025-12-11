@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import ProductList from "./ProductList";
 import Cart from "./Cart";
 import Checkout from "./Checkout";
+import Login from "./Login";
 import "./App.css";
 
 // Use environment variable for API URL, fallback to localhost for development
@@ -20,6 +21,13 @@ const App = () => {
     }
   });
   const [currentPage, setCurrentPage] = useState("products");
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    // Check if user is already logged in
+    return localStorage.getItem('isAuthenticated') === 'true';
+  });
+  const [currentUser, setCurrentUser] = useState(() => {
+    return localStorage.getItem('currentUser') || '';
+  });
 
   // Fetch products on mount
   useEffect(() => {
@@ -93,6 +101,28 @@ const App = () => {
     return cart.reduce((total, item) => total + (item.price * item.quantity), 0).toFixed(2);
   };
 
+  const handleLogin = (username) => {
+    setIsAuthenticated(true);
+    setCurrentUser(username);
+    localStorage.setItem('isAuthenticated', 'true');
+    localStorage.setItem('currentUser', username);
+  };
+
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    setCurrentUser('');
+    setCart([]);
+    setCurrentPage('products');
+    localStorage.removeItem('isAuthenticated');
+    localStorage.removeItem('currentUser');
+    localStorage.removeItem('cart');
+  };
+
+  // If not authenticated, show login page
+  if (!isAuthenticated) {
+    return <Login onLogin={handleLogin} />;
+  }
+
   return (
     <div className="app">
       <header className="header">
@@ -115,6 +145,13 @@ const App = () => {
               {getTotalItems() > 0 && (
                 <span className="cart-badge">{getTotalItems()}</span>
               )}
+            </button>
+            <button 
+              className="nav-link logout-button"
+              onClick={handleLogout}
+              title={`Logged in as ${currentUser}`}
+            >
+              Logout
             </button>
           </nav>
         </div>
